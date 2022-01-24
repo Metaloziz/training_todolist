@@ -9,7 +9,12 @@ type ListPT = {
     filter: FilterPT
 }
 
-export type FilterPT = "ALL" | "COMPLETED" | "ACTIVE"
+export const ALL = "ALL" as const
+export const COMPLETED = "COMPLETED" as const
+export const ACTIVE = "ACTIVE" as const
+
+
+export type FilterPT = typeof ALL | typeof COMPLETED | typeof ACTIVE
 
 
 export type TaskPT = {
@@ -50,11 +55,18 @@ function App() {
     })
 
 
-    const removeTaskCB = (listID: string, taskID: string) => {
+    const removeTask = (listID: string, taskID: string) => {
         setTasks((state) => ({...state, [listID]: state[listID].filter(l => l.id !== taskID)}))
     }
     const changeFilter = (listID: string, newFilter: FilterPT) => {
         setLists(state => state.map(el => el.id === listID ? {...el, filter: newFilter} : el))
+    }
+
+    const addTask = (listID: string, title: string) => {
+
+        let newTask: TaskPT = {id: v1(), title: title, isDone: false}
+
+        setTasks(state => ({...state, [listID]: [newTask, ...state[listID]]}))
     }
 
 
@@ -75,7 +87,8 @@ function App() {
                                  title={list.title}
                                  tasks={tasks[list.id]}
                                  filter={list.filter}
-                                 removeTaskCB={removeTaskCB}
+                                 addTask={addTask}
+                                 removeTaskCB={removeTask}
                                  changeFilter={changeFilter}/>
             })}
 
