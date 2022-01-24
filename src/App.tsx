@@ -13,7 +13,6 @@ export const ALL = "ALL" as const
 export const COMPLETED = "COMPLETED" as const
 export const ACTIVE = "ACTIVE" as const
 
-
 export type FilterPT = typeof ALL | typeof COMPLETED | typeof ACTIVE
 
 
@@ -38,7 +37,6 @@ function App() {
         {id: list_two_ID, title: "JS", filter: 'ALL'},
     ])
 
-
     let [tasks, setTasks] = useState<TasksPT>({
         [list_one_ID]: [
             {id: v1(), title: 'person1', isDone: false},
@@ -61,12 +59,19 @@ function App() {
     const changeFilter = (listID: string, newFilter: FilterPT) => {
         setLists(state => state.map(el => el.id === listID ? {...el, filter: newFilter} : el))
     }
-
     const addTask = (listID: string, title: string) => {
 
         let newTask: TaskPT = {id: v1(), title: title, isDone: false}
 
         setTasks(state => ({...state, [listID]: [newTask, ...state[listID]]}))
+    }
+    const checkBox = (listID: string, taskID: string) => {
+        setTasks((state) => (
+            {
+                ...state, [listID]: state[listID]
+                    .map(l => l.id === taskID ? {...l, isDone: !l.isDone} : l)
+            }
+        ))
     }
 
 
@@ -89,7 +94,8 @@ function App() {
                                  filter={list.filter}
                                  addTask={addTask}
                                  removeTaskCB={removeTask}
-                                 changeFilter={changeFilter}/>
+                                 changeFilter={changeFilter}
+                                 checkBox={checkBox}/>
             })}
 
         </div>

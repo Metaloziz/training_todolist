@@ -1,0 +1,11 @@
+.input {
+    border-color: red;
+}
+
+.textErrorTrue {
+    color: red;
+}
+
+.textErrorFalse {
+    opacity: 0;
+}

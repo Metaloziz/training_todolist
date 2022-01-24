@@ -1,6 +1,8 @@
-import React, {ChangeEvent, useState, KeyboardEvent, MouseEvent} from "react";
+import React, {MouseEvent} from "react";
 import {ACTIVE, ALL, COMPLETED, FilterPT, TaskPT} from "../../App";
 import {Tasks} from "../Tasks/Tasks";
+import {InputArea} from "../InputArea/InputArea";
+import s from './Todolist.module.css'
 
 
 type TodolistPT = {
@@ -11,33 +13,13 @@ type TodolistPT = {
     removeTaskCB: (listID: string, taskID: string) => void
     changeFilter: (listID: string, newFilter: FilterPT) => void
     addTask: (listID: string, title: string) => void
+    checkBox: (listID: string, taskID: string) => void
 }
 
 
 export const Todolist = (props: TodolistPT) => {
 
-        let [title, setTitle] = useState<string>('')
 
-        const changeTaskTitleCB = (event: ChangeEvent<HTMLInputElement>) => {
-            setTitle(event.currentTarget.value)
-        }
-
-
-        const addTaskCB = () => {
-            if (title) {
-                props.addTask(props.listID, title.trim())
-                setTitle('')
-            }
-        }
-
-        const addTaskForEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === 'Enter') {
-                if (title) {
-                    props.addTask(props.listID, title.trim())
-                    setTitle('')
-                }
-            }
-        }
         const changeFilterCB = (event: MouseEvent<HTMLButtonElement>) => {
 
             let filter: FilterPT = ALL
@@ -49,20 +31,31 @@ export const Todolist = (props: TodolistPT) => {
 
 
         return (
-            <div>
+            <div >
                 <h3>{props.title}
                 </h3>
                 <div>
-                    <input value={title}
-                           onChange={changeTaskTitleCB}
-                           onKeyPress={addTaskForEnter}/>
-                    <button onClick={addTaskCB}>+</button>
+                    <InputArea addTask={props.addTask} listID={props.listID}/>
                 </div>
-                <Tasks listID={props.listID} filter={props.filter} tasks={props.tasks} removeTaskCB={props.removeTaskCB}/>
+                <Tasks
+                    listID={props.listID}
+                    filter={props.filter}
+                    tasks={props.tasks}
+                    removeTaskCB={props.removeTaskCB}
+                    checkBox={props.checkBox}/>
                 <div>
-                    <button id={ALL} onClick={changeFilterCB}>All</button>
-                    <button id={ACTIVE} onClick={changeFilterCB}>Active</button>
-                    <button id={COMPLETED} onClick={changeFilterCB}>Completed</button>
+                    <button id={ALL}
+                            className={props.filter === ALL ? s.button : ""}
+                            onClick={changeFilterCB}>All
+                    </button>
+                    <button id={ACTIVE}
+                            className={props.filter === ACTIVE ? s.button : ""}
+                            onClick={changeFilterCB}>ACTIVE
+                    </button>
+                    <button id={COMPLETED}
+                            className={props.filter === COMPLETED ? s.button : ""}
+                            onClick={changeFilterCB}>COMPLETED
+                    </button>
                 </div>
             </div>
         )
