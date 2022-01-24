@@ -1,32 +1,42 @@
 import React from "react";
-import {taskPT} from "../../App";
+import {FilterPT, TaskPT} from "../../App";
+import {Tasks} from "../Tasks/Tasks";
 
 
 type TodolistPT = {
+    listID: string
     title: string
-    tasks: taskPT[]
+    tasks: TaskPT[]
+    filter: FilterPT
+    removeTaskCB: (listID: string, taskID: string) => void
+    changeFilter: (listID: string, newFilter: FilterPT) => void
 }
 
 
 export const Todolist = (props: TodolistPT) => {
-    return (
-        <div>
-            <h3>{props.title}</h3>
+
+
+        const changeFilterCB = (filter: FilterPT) => {
+            props.changeFilter(props.listID, filter)
+        }
+
+
+        return (
             <div>
-                <input/>
-                <button>+</button>
+                <h3>{props.title}
+                </h3>
+                <div>
+                    <input/>
+                    <button>+</button>
+                </div>
+                <Tasks listID={props.listID} filter={props.filter} tasks={props.tasks} removeTaskCB={props.removeTaskCB}/>
+                <div>
+                    <button onClick={() => changeFilterCB("ALL")}>All</button>
+                    <button onClick={() => changeFilterCB("ACTIVE")}>Active</button>
+                    <button onClick={() => changeFilterCB("COMPLETED")}>Completed</button>
+                </div>
             </div>
-            <ul>
-                {props.tasks.map(el => <li key={el.id} id={el.id}>
-                    <input type="checkbox" checked={el.isDone}/>
-                    <span>{el.title}</span>
-                </li>)}
-            </ul>
-            <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
-            </div>
-        </div>
-    );
-};
+        )
+            ;
+    }
+;
