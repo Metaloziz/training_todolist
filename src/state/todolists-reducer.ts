@@ -3,7 +3,7 @@ import {v1} from "uuid";
 
 export {}
 
-type ActionsType = addTodolistACT | removeTodolistACT | changeTodolistTitleACT | changeTodolistFilterACT
+type ActionsListType = addTodolistACT | removeTodolistACT | changeTodolistTitleACT | changeTodolistFilterACT
 
 
 export const ADD_LIST = "ADD_LIST"
@@ -11,8 +11,8 @@ export const REMOVE_LIST = "REMOVE_LIST"
 export const CHANGE_TITLE_LIST = "CHANGE_TITLE_LIST"
 export const CHANGE_FILTER_LIST = "CHANGE_FILTER_LIST"
 
-type addTodolistACT = ReturnType<typeof addTodolistAC>
-type removeTodolistACT = ReturnType<typeof removeTodolistAC>
+export type addTodolistACT = ReturnType<typeof addTodolistAC>
+export type removeTodolistACT = ReturnType<typeof removeTodolistAC>
 type changeTodolistTitleACT = ReturnType<typeof changeTodolistTitleAC>
 type changeTodolistFilterACT = ReturnType<typeof changeTodolistFilterAC>
 
@@ -38,7 +38,7 @@ let initState: ListPT[] = [
 ]
 
 
-export const todolistsReducer = (state: ListPT[] = initState, action: ActionsType): ListPT[] => {
+export const todolistsReducer = (state: ListPT[] = initState, action: ActionsListType): ListPT[] => {
     switch (action.type) {
         case ADD_LIST:
             let newList: ListPT = {id: v1(), title: action.title, filter: "ALL"}
@@ -50,6 +50,5 @@ export const todolistsReducer = (state: ListPT[] = initState, action: ActionsTyp
         case CHANGE_FILTER_LIST:
             return state.map(el => el.id === action.listID ? {...el, filter: action.filter} : el)
     }
-
     return state
 }

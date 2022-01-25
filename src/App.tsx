@@ -4,6 +4,7 @@ import {Todolist} from "./components/Todolist/Todolist";
 import {v1} from 'uuid'
 import {InputArea} from "./components/InputArea/InputArea";
 import {ListPT} from "./state/todolists-reducer";
+import {TasksPT, TaskType} from "./state/tasks-reducer";
 
 
 export const ALL = "ALL" as const
@@ -11,17 +12,6 @@ export const COMPLETED = "COMPLETED" as const
 export const ACTIVE = "ACTIVE" as const
 
 export type FilterPT = typeof ALL | typeof COMPLETED | typeof ACTIVE
-
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
-
-type TasksPT = {
-    [key: string]: TaskType[]
-}
 
 
 function App() {
@@ -49,16 +39,12 @@ function App() {
         ]
     })
 
-
-    const removeTask = (listID: string, taskID: string) => {
-        setTasks((state) => ({...state, [listID]: state[listID].filter(l => l.id !== taskID)}))
-    }
-    const changeFilter = (listID: string, newFilter: FilterPT) => {
-        setLists(state => state.map(el => el.id === listID ? {...el, filter: newFilter} : el))
-    }
     const addTask = (listID: string, title: string) => {
         let newTask: TaskType = {id: v1(), title: title, isDone: false}
         setTasks(state => ({...state, [listID]: [newTask, ...state[listID]]}))
+    }
+    const removeTask = (listID: string, taskID: string) => {
+        setTasks((state) => ({...state, [listID]: state[listID].filter(l => l.id !== taskID)}))
     }
     const checkBox = (listID: string, taskID: string) => {
         setTasks((state) => (
@@ -67,6 +53,12 @@ function App() {
                     .map(l => l.id === taskID ? {...l, isDone: !l.isDone} : l)
             }
         ))
+    }
+    const changeTitleTask = (listID: string, taskID: string, title: string) => {
+        setTasks({...tasks, [listID]: tasks[listID].map(el => el.id === taskID ? {...el, title: title} : el)})
+    }
+    const changeFilter = (listID: string, newFilter: FilterPT) => {
+        setLists(state => state.map(el => el.id === listID ? {...el, filter: newFilter} : el))
     }
     const removeList = (listID: string) => {
         setLists(state => state.filter(el => el.id !== listID))
@@ -84,10 +76,6 @@ function App() {
         copyTasks[listID] = []
         setTasks(copyTasks)
     }
-    const changeTitleTask = (listID: string, taskID: string, title: string) => {
-        setTasks({...tasks, [listID]: tasks[listID].map(el => el.id === taskID ? {...el, title: title} : el)})
-    }
-
     const changeTitleList = (listID: string, title: string) => {
         setLists(lists.map(el => el.id === listID ? {...el, title: title} : el))
     }

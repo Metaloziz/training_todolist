@@ -3,10 +3,8 @@ import {
     changeTodolistFilterAC,
     removeTodolistAC,
     todolistsReducer,
-
 } from './todolists-reducer';
 
-import {v1} from 'uuid';
 import {FilterPT} from "../App";
 
 let todolistId1: string;
