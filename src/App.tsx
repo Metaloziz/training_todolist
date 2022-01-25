@@ -3,12 +3,8 @@ import './App.css';
 import {Todolist} from "./components/Todolist/Todolist";
 import {v1} from 'uuid'
 import {InputArea} from "./components/InputArea/InputArea";
+import {ListPT} from "./state/todolists-reducer";
 
-type ListPT = {
-    id: string
-    title: string
-    filter: FilterPT
-}
 
 export const ALL = "ALL" as const
 export const COMPLETED = "COMPLETED" as const
