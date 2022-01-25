@@ -2,3 +2,7 @@
     opacity: 70%;
 }
 
+.ul {
+    display: flex;
+    flex-direction: column;
+}

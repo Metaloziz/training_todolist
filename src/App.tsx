@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from "./components/Todolist/Todolist";
 import {v1} from 'uuid'
+import {InputArea} from "./components/InputArea/InputArea";
 
 type ListPT = {
     id: string
@@ -16,14 +17,14 @@ export const ACTIVE = "ACTIVE" as const
 export type FilterPT = typeof ALL | typeof COMPLETED | typeof ACTIVE
 
 
-export type TaskPT = {
+export type TaskType = {
     id: string
     title: string
     isDone: boolean
 }
 
 type TasksPT = {
-    [key: string]: TaskPT[]
+    [key: string]: TaskType[]
 }
 
 
@@ -60,7 +61,7 @@ function App() {
         setLists(state => state.map(el => el.id === listID ? {...el, filter: newFilter} : el))
     }
     const addTask = (listID: string, title: string) => {
-        let newTask: TaskPT = {id: v1(), title: title, isDone: false}
+        let newTask: TaskType = {id: v1(), title: title, isDone: false}
         setTasks(state => ({...state, [listID]: [newTask, ...state[listID]]}))
     }
     const checkBox = (listID: string, taskID: string) => {
@@ -78,11 +79,27 @@ function App() {
         setTasks(copy)
         console.log(tasks)
     }
+    const addList = (listID: string, title: string) => {
+        let newList: ListPT = {id: listID, title: title, filter: ALL}
+        let copyList = [...lists]
+        copyList.unshift(newList)
+        setLists(copyList)
+        let copyTasks = {...tasks}
+        copyTasks[listID] = []
+        setTasks(copyTasks)
+    }
+    const changeTitleTask = (listID: string, taskID: string, title: string) => {
+        setTasks({...tasks, [listID]: tasks[listID].map(el => el.id === taskID ? {...el, title: title} : el)})
+    }
+
+    const changeTitleList = (listID: string, title: string) => {
+        setLists(lists.map(el => el.id === listID ? {...el, title: title} : el))
+    }
 
 
     return (
         <div className="App">
-
+            <InputArea listID={v1()} addItem={addList}/>
             {lists.map(list => {
                 return <Todolist key={list.id}
                                  listID={list.id}
@@ -93,7 +110,9 @@ function App() {
                                  removeTaskCB={removeTask}
                                  changeFilter={changeFilter}
                                  checkBox={checkBox}
-                                 removeList={removeList}/>
+                                 removeList={removeList}
+                                 changeTitleTask={changeTitleTask}
+                                 changeTitleList={changeTitleList}/>
             })}
 
         </div>

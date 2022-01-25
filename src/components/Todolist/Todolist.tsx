@@ -1,20 +1,23 @@
 import React, {MouseEvent} from "react";
-import {ACTIVE, ALL, COMPLETED, FilterPT, TaskPT} from "../../App";
+import {ACTIVE, ALL, COMPLETED, FilterPT, TaskType} from "../../App";
 import {Tasks} from "../Tasks/Tasks";
 import {InputArea} from "../InputArea/InputArea";
 import s from './Todolist.module.css'
+import {EditableSpan} from "../EditableSpan/EditableSpan";
 
 
 type TodolistPT = {
     listID: string
     title: string
-    tasks: TaskPT[]
+    tasks: TaskType[]
     filter: FilterPT
     removeTaskCB: (listID: string, taskID: string) => void
     changeFilter: (listID: string, newFilter: FilterPT) => void
     addTask: (listID: string, title: string) => void
     checkBox: (listID: string, taskID: string) => void
     removeList: (listID: string) => void
+    changeTitleTask: (listID: string, taskID: string, title: string) => void
+    changeTitleList: (listID: string, title: string) => void
 }
 
 
@@ -34,21 +37,25 @@ export const Todolist = (props: TodolistPT) => {
             props.removeList(props.listID)
         }
 
-        // test verification
+        const changeTitleCB = (title: string) => {
+            props.changeTitleList(props.listID, title)
+        }
 
         return (
             <div>
-                <h3>{props.title}</h3>
+                {/*<h3>{props.title}</h3>*/}
+                <h3><EditableSpan title={props.title} changeTitle={changeTitleCB}/></h3>
                 <button onClick={removeListCB}>x</button>
                 <div>
-                    <InputArea addTask={props.addTask} listID={props.listID}/>
+                    <InputArea addItem={props.addTask} listID={props.listID}/>
                 </div>
                 <Tasks
                     listID={props.listID}
                     filter={props.filter}
                     tasks={props.tasks}
                     removeTaskCB={props.removeTaskCB}
-                    checkBox={props.checkBox}/>
+                    checkBox={props.checkBox}
+                    changeTitle={props.changeTitleTask}/>
                 <div>
                     <button id={ALL}
                             className={props.filter === ALL ? s.button : ""}
