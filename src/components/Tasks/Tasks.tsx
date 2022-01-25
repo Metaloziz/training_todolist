@@ -22,9 +22,9 @@ export const Tasks = (props: TasksPT) => {
 
     return (
         <div>
-            <ul className={s.ul}>
+            <div className={s.ul}>
                 {filtredTasks.map(el =>
-                    <li key={el.id} className={el.isDone ? s.taskOpacity : ""}>
+                    <div key={el.id} className={el.isDone ? s.taskOpacity : ""}>
                         <Task
                             id={el.id}
                             title={el.title}
@@ -33,9 +33,9 @@ export const Tasks = (props: TasksPT) => {
                             removeTaskCB={props.removeTaskCB}
                             checkBox={props.checkBox}
                             changeTitle={props.changeTitle}/>
-                    </li>)
+                    </div>)
                 }
-            </ul>
+            </div>
         </div>
     );
 };

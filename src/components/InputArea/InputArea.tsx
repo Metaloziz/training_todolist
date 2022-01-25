@@ -7,9 +7,6 @@ type InputAreaPT = {
 }
 
 
-
-
-
 export const InputArea = (props: InputAreaPT) => {
 
     let [title, setTitle] = useState<string>('')
@@ -43,11 +40,13 @@ export const InputArea = (props: InputAreaPT) => {
 
     return (
         <div>
-            <input value={title}
-                   className={error ? s.input : ''}
-                   onChange={changeTaskTitleCB}
-                   onKeyPress={addTaskForEnter}/>
-            <button onClick={addTaskCB}>+</button>
+            <div className={s.inputAndButton}>
+                <input value={title}
+                       className={error ? s.input : ''}
+                       onChange={changeTaskTitleCB}
+                       onKeyPress={addTaskForEnter}/>
+                <button onClick={addTaskCB}>+</button>
+            </div>
             <div className={error ? s.textErrorTrue : s.textErrorFalse}>Field is required</div>
         </div>
     );
