@@ -34,6 +34,7 @@ export const Todolist = (props: TodolistPT) => {
             props.removeList(props.listID)
         }
 
+        // test verification
 
         return (
             <div>
