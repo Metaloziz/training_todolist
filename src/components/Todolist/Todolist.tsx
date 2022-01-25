@@ -14,6 +14,7 @@ type TodolistPT = {
     changeFilter: (listID: string, newFilter: FilterPT) => void
     addTask: (listID: string, title: string) => void
     checkBox: (listID: string, taskID: string) => void
+    removeList: (listID: string) => void
 }
 
 
@@ -29,11 +30,15 @@ export const Todolist = (props: TodolistPT) => {
             props.changeFilter(props.listID, filter)
         }
 
+        const removeListCB = () => {
+            props.removeList(props.listID)
+        }
+
 
         return (
-            <div >
-                <h3>{props.title}
-                </h3>
+            <div>
+                <h3>{props.title}</h3>
+                <button onClick={removeListCB}>x</button>
                 <div>
                     <InputArea addTask={props.addTask} listID={props.listID}/>
                 </div>

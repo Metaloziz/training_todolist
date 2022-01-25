@@ -19,10 +19,11 @@ export const Tasks = (props: TasksPT) => {
     }
 
 
-    let filtredTasks = props.tasks
 
+    let filtredTasks = props.tasks
     if (props.filter === COMPLETED) filtredTasks = props.tasks.filter(el => el.isDone)
     if (props.filter === ACTIVE) filtredTasks = props.tasks.filter(el => !el.isDone)
+
 
 
     return (

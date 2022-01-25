@@ -60,9 +60,7 @@ function App() {
         setLists(state => state.map(el => el.id === listID ? {...el, filter: newFilter} : el))
     }
     const addTask = (listID: string, title: string) => {
-
         let newTask: TaskPT = {id: v1(), title: title, isDone: false}
-
         setTasks(state => ({...state, [listID]: [newTask, ...state[listID]]}))
     }
     const checkBox = (listID: string, taskID: string) => {
@@ -73,14 +71,13 @@ function App() {
             }
         ))
     }
-
-
-    // const tasks2: taskPT[] = [
-    //     {id: v1(), title: 'valuable1', isDone: false},
-    //     {id: v1(), title: 'valuable2', isDone: false},
-    //     {id: v1(), title: 'valuable3', isDone: false},
-    //     {id: v1(), title: 'valuable4', isDone: false},
-    // ]
+    const removeList = (listID: string) => {
+        setLists(state => state.filter(el => el.id !== listID))
+        let copy = {...tasks}
+        delete copy[listID]
+        setTasks(copy)
+        console.log(tasks)
+    }
 
 
     return (
@@ -95,7 +92,8 @@ function App() {
                                  addTask={addTask}
                                  removeTaskCB={removeTask}
                                  changeFilter={changeFilter}
-                                 checkBox={checkBox}/>
+                                 checkBox={checkBox}
+                                 removeList={removeList}/>
             })}
 
         </div>
