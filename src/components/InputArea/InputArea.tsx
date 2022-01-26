@@ -2,8 +2,8 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import s from './InputArea.module.css'
 
 type InputAreaPT = {
-    listID: string
-    addItem: (itemID: string, title: string) => void
+    // listID: string
+    addItem: (title: string) => void
 }
 
 
@@ -18,7 +18,7 @@ export const InputArea = (props: InputAreaPT) => {
     }
     const addTaskCB = () => {
         if (title) {
-            props.addItem(props.listID, title.trim())
+            props.addItem(title.trim())
             setTitle('')
             setError(false)
         } else {
@@ -29,7 +29,7 @@ export const InputArea = (props: InputAreaPT) => {
     const addTaskForEnter = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             if (title) {
-                props.addItem(props.listID, title.trim())
+                props.addItem(title.trim())
                 setTitle('')
                 setError(false)
             } else {

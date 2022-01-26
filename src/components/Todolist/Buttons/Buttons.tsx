@@ -1,6 +1,6 @@
-import {ACTIVE, ALL, COMPLETED, FilterPT} from "../../../App";
 import React, {MouseEvent} from "react";
 import s from './Buttons.module.css'
+import {ACTIVE, ALL, COMPLETED, FilterPT} from "../../../AppWithReducer";
 
 type ButtonsPT = {
     listID: string

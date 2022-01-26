@@ -1,10 +1,11 @@
 import React from "react";
-import {FilterPT, TaskType} from "../../App";
 import {Tasks} from "../Tasks/Tasks";
 import {InputArea} from "../InputArea/InputArea";
 import s from './Todolist.module.css'
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Buttons} from "./Buttons/Buttons";
+import {TaskType} from "../../state/tasks-reducer";
+import {FilterPT} from "../../AppWithReducer";
 
 
 type TodolistPT = {
@@ -33,6 +34,10 @@ export const Todolist = (props: TodolistPT) => {
         props.changeTitleList(props.listID, title)
     }
 
+    const addTaskCB = (title:string) => {
+        props.addTask(props.listID, title)
+    }
+
     return (
         <div className={s.listItems}>
 
@@ -43,7 +48,7 @@ export const Todolist = (props: TodolistPT) => {
                 <button onClick={removeListCB}>x</button>
             </div>
             <div>
-                <InputArea addItem={props.addTask} listID={props.listID}/>
+                <InputArea addItem={addTaskCB}/>
             </div>
             <Tasks
                 listID={props.listID}

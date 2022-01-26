@@ -1,5 +1,5 @@
-import {FilterPT} from "../App";
 import {v1} from "uuid";
+import {FilterPT} from "../AppWithReducer";
 
 export {}
 
@@ -41,7 +41,7 @@ let initState: ListPT[] = [
 export const todolistsReducer = (state: ListPT[] = initState, action: ActionsListType): ListPT[] => {
     switch (action.type) {
         case ADD_LIST:
-            let newList: ListPT = {id: v1(), title: action.title, filter: "ALL"}
+            let newList: ListPT = {id: action.listID, title: action.title, filter: "ALL"}
             return [newList, ...state]
         case REMOVE_LIST:
             return [...state].filter(el => el.id !== action.listID)

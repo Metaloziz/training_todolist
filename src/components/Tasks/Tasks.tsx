@@ -1,7 +1,8 @@
-import {ACTIVE, COMPLETED, FilterPT, TaskType} from "../../App";
 import React from "react";
 import s from './Tasks.module.css'
 import {Task} from "./Task/Task";
+import {TaskType} from "../../state/tasks-reducer";
+import {ACTIVE, COMPLETED, FilterPT} from "../../AppWithReducer";
 
 type TasksPT = {
     listID: string

@@ -1,8 +1,7 @@
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TasksPT, tasksReducer} from './tasks-reducer';
 import {addTodolistAC, removeTodolistAC} from './todolists-reducer';
 
-let startState: TasksPT = {};
-
+let startState: TasksPT = {}
 
 beforeEach(() => {
     startState = {

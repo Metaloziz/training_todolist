@@ -12,8 +12,8 @@ let todolistId2: string;
 let startState: ListPT[] = [];
 
 beforeEach(() => {
-    todolistId1 = '1';
-    todolistId2 = '2';
+    todolistId1 = 'todolistId1';
+    todolistId2 = 'todolistId2';
     startState = [
         {id: todolistId1, title: "What to learn", filter: "ALL"},
         {id: todolistId2, title: "What to buy", filter: "ALL"}
@@ -30,7 +30,6 @@ test('correct todolist should be added', () => {
     expect(endState[0].title).toBe(newTodolistTitle)
     expect(endState[0].filter).toBe("ALL")
 });
-
 test('correct todolist should be removed', () => {
     const endState = todolistsReducer(startState, removeTodolistAC(todolistId1))
 
@@ -38,7 +37,6 @@ test('correct todolist should be removed', () => {
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe(todolistId2);
 });
-
 test('correct todolist should change its name', () => {
     let newTodolistTitle = "New Todolist";
 
@@ -50,7 +48,6 @@ test('correct todolist should change its name', () => {
     expect(endState[0].title).toBe("What to learn");
     expect(endState[1].title).toBe(newTodolistTitle);
 });
-
 test('correct filter of todolist should be changed', () => {
 
     let newFilter: FilterPT = "COMPLETED";
