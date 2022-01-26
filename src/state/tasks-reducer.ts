@@ -42,18 +42,18 @@ export type TasksPT = {
 }
 
 let initState: TasksPT = {
-    "1": [
-        {id: v1(), title: 'person1', isDone: false},
-        {id: v1(), title: 'evening', isDone: true},
-        {id: v1(), title: 'hire', isDone: true},
-        {id: v1(), title: 'apart', isDone: true},
-    ],
-    "2": [
-        {id: v1(), title: 'universe', isDone: true},
-        {id: v1(), title: 'fruit', isDone: false},
-        {id: v1(), title: 'week', isDone: true},
-        {id: v1(), title: 'bend', isDone: false},
-    ]
+    // "1": [
+    //     {id: v1(), title: 'person1', isDone: false},
+    //     {id: v1(), title: 'evening', isDone: true},
+    //     {id: v1(), title: 'hire', isDone: true},
+    //     {id: v1(), title: 'apart', isDone: true},
+    // ],
+    // "2": [
+    //     {id: v1(), title: 'universe', isDone: true},
+    //     {id: v1(), title: 'fruit', isDone: false},
+    //     {id: v1(), title: 'week', isDone: true},
+    //     {id: v1(), title: 'bend', isDone: false},
+    // ]
 }
 
 export const tasksReducer = (state: TasksPT = initState, action: ActionsTasksType): TasksPT => {

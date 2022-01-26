@@ -1,16 +1,17 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 import './App.css';
 import {Todolist} from "./components/Todolist/Todolist";
-import {v1} from 'uuid'
 import {InputArea} from "./components/InputArea/InputArea";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
+    ListPT,
+    removeTodolistAC
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TasksPT} from "./state/tasks-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {RootReducerType} from "./store/store";
 
 
 export const ALL = "ALL" as const
@@ -22,56 +23,44 @@ export type FilterPT = typeof ALL | typeof COMPLETED | typeof ACTIVE
 
 function App() {
 
-    let list_one_ID = v1()
-    let list_two_ID = v1()
+    // let list_one_ID = v1()
+    // let list_two_ID = v1()
+    //
+    // let [lists, dispatchLists] = useReducer(todolistsReducer, [])
+    // let [tasks, dispatchTasks] = useReducer(tasksReducer, {})
 
-    let [lists, dispatchLists] = useReducer(todolistsReducer, [
-        {id: list_one_ID, title: "TS", filter: 'ALL'},
-        {id: list_two_ID, title: "JS", filter: 'ALL'},
-    ])
+    const lists = useSelector<RootReducerType, ListPT[]>(state => state.todolistsReducer)
+    const tasks = useSelector<RootReducerType, TasksPT>(state => state.tasksReducer)
+    const dispatch = useDispatch()
 
-    let [tasks, dispatchTasks] = useReducer(tasksReducer, {
-        [list_one_ID]: [
-            {id: v1(), title: 'person1', isDone: false},
-            {id: v1(), title: 'evening', isDone: true},
-            {id: v1(), title: 'hire', isDone: true},
-            {id: v1(), title: 'apart', isDone: true},
-        ],
-        [list_two_ID]: [
-            {id: v1(), title: 'universe', isDone: true},
-            {id: v1(), title: 'fruit', isDone: false},
-            {id: v1(), title: 'week', isDone: true},
-            {id: v1(), title: 'bend', isDone: false},
-        ]
-    })
 
     const addList = (title: string) => {
         let action = addTodolistAC(title)
-        dispatchLists(action)
-        dispatchTasks(action)
+        dispatch(action)
+       
     }
     const removeList = (listID: string) => {
         let action = removeTodolistAC(listID)
-        dispatchLists(action)
-        dispatchTasks(action)
+        dispatch(action)
+
     }
     const changeFilter = (listID: string, newFilter: FilterPT) => {
-        dispatchLists(changeTodolistFilterAC(listID, newFilter))
+        dispatch(changeTodolistFilterAC(listID, newFilter))
     }
     const changeTitleList = (listID: string, title: string) => {
-        dispatchLists(changeTodolistTitleAC(listID, title))
+        dispatch(changeTodolistTitleAC(listID, title))
     }
     const addTask = (listID: string, title: string) => {
-        dispatchTasks(addTaskAC(listID, title))
+        dispatch(addTaskAC(listID, title))
     }
     const removeTask = (listID: string, taskID: string) => {
-        dispatchTasks(removeTaskAC(listID, taskID))
+        dispatch(removeTaskAC(listID, taskID))
     }
     const checkBox = (listID: string, taskID: string) => {
-        dispatchTasks(changeTaskStatusAC(listID, taskID))
+        dispatch(changeTaskStatusAC(listID, taskID))
     }
     const changeTitleTask = (listID: string, taskID: string, title: string) => {
-        dispatchTasks(changeTaskTitleAC(listID, taskID, title))
+        dispatch(changeTaskTitleAC(listID, taskID, title))
     }
 
     return (

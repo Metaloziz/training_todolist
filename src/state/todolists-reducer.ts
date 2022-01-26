@@ -33,10 +33,9 @@ export type ListPT = {
 
 
 let initState: ListPT[] = [
-    {id: '1', title: "TS", filter: 'ALL'},
-    {id: '2', title: "JS", filter: 'ALL'},
+    // {id: '1', title: "TS", filter: 'ALL'},
+    // {id: '2', title: "JS", filter: 'ALL'},
 ]
-
 
 export const todolistsReducer = (state: ListPT[] = initState, action: ActionsListType): ListPT[] => {
     switch (action.type) {
@@ -49,6 +48,8 @@ export const todolistsReducer = (state: ListPT[] = initState, action: ActionsLis
             return state.map(el => el.id === action.listID ? {...el, title: action.title} : el)
         case CHANGE_FILTER_LIST:
             return state.map(el => el.id === action.listID ? {...el, filter: action.filter} : el)
+        default:
+            return state
     }
-    return state
+
 }
