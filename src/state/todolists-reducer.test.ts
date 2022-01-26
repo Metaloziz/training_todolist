@@ -4,8 +4,8 @@ import {
     removeTodolistAC,
     todolistsReducer,
 } from './todolists-reducer';
+import {FilterPT} from "../AppWithReducer";
 
-import {FilterPT} from "../App";
 
 let todolistId1: string;
 let todolistId2: string;

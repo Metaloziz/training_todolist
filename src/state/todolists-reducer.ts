@@ -33,8 +33,8 @@ export type ListPT = {
 
 
 let initState: ListPT[] = [
-    // {id: '1', title: "TS", filter: 'ALL'},
-    // {id: '2', title: "JS", filter: 'ALL'},
+    {id: '1', title: "TS", filter: 'ALL'},
+    {id: '2', title: "JS", filter: 'ALL'},
 ]
 
 export const todolistsReducer = (state: ListPT[] = initState, action: ActionsListType): ListPT[] => {

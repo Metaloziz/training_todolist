@@ -1,13 +1,16 @@
 import React, {MouseEvent} from "react";
 import s from './Buttons.module.css'
 import {ACTIVE, ALL, COMPLETED, FilterPT} from "../../../AppWithReducer";
+import {changeTodolistFilterAC} from "../../../state/todolists-reducer";
+import {useDispatch} from "react-redux";
 
 type ButtonsPT = {
     listID: string
     filter: FilterPT
-    changeFilter: (listID: string, newFilter: FilterPT) => void
 }
 export const Buttons = (props: ButtonsPT) => {
+
+    const dispatch = useDispatch()
 
     const changeFilterCB = (event: MouseEvent<HTMLButtonElement>) => {
 
@@ -15,7 +18,7 @@ export const Buttons = (props: ButtonsPT) => {
         if (event.currentTarget.id === ACTIVE) filter = ACTIVE
         if (event.currentTarget.id === COMPLETED) filter = COMPLETED
 
-        props.changeFilter(props.listID, filter)
+        dispatch(changeTodolistFilterAC(props.listID, filter))
     }
 
 

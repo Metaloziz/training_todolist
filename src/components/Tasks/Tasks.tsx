@@ -3,37 +3,33 @@ import s from './Tasks.module.css'
 import {Task} from "./Task/Task";
 import {TaskType} from "../../state/tasks-reducer";
 import {ACTIVE, COMPLETED, FilterPT} from "../../AppWithReducer";
+import {useSelector} from "react-redux";
+import {RootReducerType} from "../../store/store";
 
 type TasksPT = {
     listID: string
-    tasks: TaskType[]
+    // tasks: TaskType[]
     filter: FilterPT
-    removeTaskCB: (listID: string, taskID: string) => void
-    checkBox: (listID: string, taskID: string) => void
-    changeTitle: (listID: string, taskID: string, title: string) => void
 }
-
 
 export const Tasks = (props: TasksPT) => {
 
+    let tasks = useSelector<RootReducerType, TaskType[]>(state => state.tasksReducer[props.listID])
 
-    let filtredTasks = props.tasks
-    if (props.filter === COMPLETED) filtredTasks = props.tasks.filter(el => el.isDone)
-    if (props.filter === ACTIVE) filtredTasks = props.tasks.filter(el => !el.isDone)
+    if (props.filter === COMPLETED) tasks = tasks.filter(el => el.isDone)
+    if (props.filter === ACTIVE) tasks = tasks.filter(el => !el.isDone)
 
     return (
         <div>
             <div className={s.ul}>
-                {filtredTasks.map(el =>
+                {tasks.map(el =>
                     <div key={el.id} className={el.isDone ? s.taskOpacity : ""}>
                         <Task
-                            id={el.id}
+                            taskID={el.id}
                             title={el.title}
                             isDone={el.isDone}
                             listID={props.listID}
-                            removeTaskCB={props.removeTaskCB}
-                            checkBox={props.checkBox}
-                            changeTitle={props.changeTitle}/>
+                        />
                     </div>)
                 }
             </div>

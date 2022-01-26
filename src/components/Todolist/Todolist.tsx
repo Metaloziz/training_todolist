@@ -4,46 +4,31 @@ import {InputArea} from "../InputArea/InputArea";
 import s from './Todolist.module.css'
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Buttons} from "./Buttons/Buttons";
-import {TaskType} from "../../state/tasks-reducer";
+import {addTaskAC} from "../../state/tasks-reducer";
 import {FilterPT} from "../../AppWithReducer";
+import {useDispatch} from "react-redux";
+import {changeTodolistTitleAC, ListPT, removeTodolistAC} from "../../state/todolists-reducer";
 
 
 type TodolistPT = {
-    listID: string
-    title: string
-    tasks: TaskType[]
-    filter: FilterPT
-    removeTaskCB: (listID: string, taskID: string) => void
-    changeFilter: (listID: string, newFilter: FilterPT) => void
-    addTask: (listID: string, title: string) => void
-    checkBox: (listID: string, taskID: string) => void
-    removeList: (listID: string) => void
-    changeTitleTask: (listID: string, taskID: string, title: string) => void
-    changeTitleList: (listID: string, title: string) => void
+    list: ListPT
 }
-
 
 export const Todolist = (props: TodolistPT) => {
 
+    const dispatch = useDispatch()
 
-    const removeListCB = () => {
-        props.removeList(props.listID)
-    }
+    const removeListCB = () => dispatch(removeTodolistAC(props.list.id))
+    const changeTitleCB = (title: string) => dispatch(changeTodolistTitleAC(props.list.id, title))
+    const addTaskCB = (title: string) => dispatch(addTaskAC(props.list.id, title))
 
-    const changeTitleCB = (title: string) => {
-        props.changeTitleList(props.listID, title)
-    }
-
-    const addTaskCB = (title:string) => {
-        props.addTask(props.listID, title)
-    }
 
     return (
         <div className={s.listItems}>
 
             <div className={s.headList}>
                 <h3>
-                    <EditableSpan title={props.title} changeTitle={changeTitleCB}/>
+                    <EditableSpan title={props.list.title} changeTitle={changeTitleCB}/>
                 </h3>
                 <button onClick={removeListCB}>x</button>
             </div>
@@ -51,16 +36,16 @@ export const Todolist = (props: TodolistPT) => {
                 <InputArea addItem={addTaskCB}/>
             </div>
             <Tasks
-                listID={props.listID}
-                filter={props.filter}
-                tasks={props.tasks}
-                removeTaskCB={props.removeTaskCB}
-                checkBox={props.checkBox}
-                changeTitle={props.changeTitleTask}
+                listID={props.list.id}
+                filter={props.list.filter}
+                // tasks={props.tasks}
+                // removeTaskCB={props.removeTaskCB}
+                // checkBox={props.checkBox}
+                // changeTitle={props.changeTitleTask}
             />
-            <Buttons listID={props.listID}
-                     filter={props.filter}
-                     changeFilter={props.changeFilter}
+            <Buttons listID={props.list.id}
+                     filter={props.list.filter}
+                // changeFilter={props.changeFilter}
             />
         </div>
     );

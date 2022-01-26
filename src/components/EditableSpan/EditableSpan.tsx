@@ -26,8 +26,6 @@ export const EditableSpan = (props: EditableSpanPT) => {
                 setView(!view)
             }
         }
-
-
     }
 
     return (

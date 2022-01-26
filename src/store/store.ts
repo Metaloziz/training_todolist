@@ -12,6 +12,5 @@ export const store = createStore(rootReducer)
 
 export type RootReducerType = ReturnType<typeof rootReducer>
 
-
 // @ts-ignore
 window.store = store
