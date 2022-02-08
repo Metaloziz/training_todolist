@@ -26,6 +26,7 @@ export const Todolist = (props: TodolistPT) => {
     return (
         <div className={s.listItems}>
 
+
             <div className={s.headList}>
                 <h3>
                     <EditableSpan title={props.list.title} changeTitle={changeTitleCB}/>

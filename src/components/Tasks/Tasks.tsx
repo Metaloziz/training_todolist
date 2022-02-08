@@ -8,7 +8,6 @@ import {RootReducerType} from "../../store/store";
 
 type TasksPT = {
     listID: string
-    // tasks: TaskType[]
     filter: FilterPT
 }
 

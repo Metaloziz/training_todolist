@@ -45,6 +45,7 @@ export const InputArea = (props: InputAreaPT) => {
                        className={error ? s.input : ''}
                        onChange={changeTaskTitleCB}
                        onKeyPress={addTaskForEnter}/>
+                {/*<script>{() => console.log('bug')}</script>*/}
                 <button onClick={addTaskCB}>+</button>
             </div>
             <div className={error ? s.textErrorTrue : s.textErrorFalse}>Field is required</div>

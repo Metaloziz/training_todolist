@@ -43,7 +43,7 @@ export type TaskType = {
 
 let initState: TasksPT = {
     "1": [
-        {id: v1(), title: 'person1', isDone: false},
+        {id: v1(), title: '<script>()=>console.log(1)</script>', isDone: false},
         {id: v1(), title: 'evening', isDone: true},
         {id: v1(), title: 'hire', isDone: true},
         {id: v1(), title: 'apart', isDone: true},
